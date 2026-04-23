@@ -13,8 +13,10 @@ The Stage 1 database is stored as Markdown tables:
 
 Each table uses this schema:
 
-| # | Kanji | Level | Meanings | On'yomi | Kun'yomi | Examples | Notes |
-|---:|:---:|:---:|---|---|---|---|---|
+| # | Kanji | Level | Meanings | Radicals | On'yomi | Kun'yomi | Examples | Notes |
+|---:|:---:|:---:|---|---|---|---|---|---|
+
+`Radicals` contains visible multi-radical/component lookup elements from EDRDG KRADFILE, not only the single official dictionary radical.
 
 Current row counts:
 
@@ -72,6 +74,7 @@ The converter emits one object with project metadata and entries grouped by JLPT
         "kanji": "日",
         "level": "N5",
         "meanings": ["day", "sun", "Japan", "counter for days"],
+        "radicals": ["日"],
         "readings": {
           "on": ["ニチ", "ジツ"],
           "kun": ["ひ", "-び", "-か"]
@@ -92,5 +95,4 @@ The converter emits one object with project metadata and entries grouped by JLPT
 
 ## Attribution
 
-Readings, English meanings, and vocabulary examples are derived from EDRDG KANJIDIC2/JMdict data. See `ATTRIBUTION.md` for source, license, and downstream attribution notes.
-
+Readings, English meanings, vocabulary examples, and radical/component lists are derived from EDRDG data. See `ATTRIBUTION.md` for source, license, and downstream attribution notes.

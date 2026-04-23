@@ -12,6 +12,7 @@ EXPECTED_COLUMNS = [
     "Kanji",
     "Level",
     "Meanings",
+    "Radicals",
     "On'yomi",
     "Kun'yomi",
     "Examples",
@@ -90,6 +91,10 @@ def validate(root: Path) -> list[str]:
                 errors.append(f"{location}: expected Level {level}, got {row['Level']!r}")
             if not row["Meanings"]:
                 errors.append(f"{location}: Meanings is empty")
+            if not row["Radicals"]:
+                errors.append(f"{location}: Radicals is empty")
+            elif any(not radical.strip() for radical in row["Radicals"].split(",")):
+                errors.append(f"{location}: Radicals contains an empty entry")
             if not row["On'yomi"] and not row["Kun'yomi"]:
                 errors.append(f"{location}: both On'yomi and Kun'yomi are empty")
             if not row["Examples"]:

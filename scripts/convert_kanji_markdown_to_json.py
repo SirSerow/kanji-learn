@@ -48,6 +48,7 @@ def convert(root: Path) -> dict[str, object]:
                     "kanji": row["Kanji"],
                     "level": row["Level"],
                     "meanings": split_list(row["Meanings"]),
+                    "radicals": split_list(row["Radicals"]),
                     "readings": {
                         "on": split_list(row["On'yomi"]),
                         "kun": split_list(row["Kun'yomi"]),
@@ -67,9 +68,9 @@ def convert(root: Path) -> dict[str, object]:
                 "level placement is practical study guidance, not an official exam specification."
             ),
             "source_notice": (
-                "Readings, English meanings, and vocabulary examples are derived from "
-                "EDRDG KANJIDIC2/JMdict data under the EDRDG license and CC BY-SA "
-                "4.0-compatible terms."
+                "Readings, English meanings, vocabulary examples, and radical/component "
+                "lists are derived from EDRDG KANJIDIC2/JMdict/KRADFILE data under the "
+                "EDRDG license and CC BY-SA 4.0-compatible terms."
             ),
             "counts": {level: len(entries) for level, entries in levels.items()},
         },
