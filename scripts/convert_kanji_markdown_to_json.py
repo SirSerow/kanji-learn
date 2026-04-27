@@ -8,7 +8,12 @@ import json
 import re
 from pathlib import Path
 
-from validate_kanji_markdown import EXPECTED_COUNTS, parse_markdown_table, validate
+try:
+    from .radical_metadata import parse_radicals
+    from .validate_kanji_markdown import EXPECTED_COUNTS, parse_markdown_table, validate
+except ImportError:
+    from radical_metadata import parse_radicals
+    from validate_kanji_markdown import EXPECTED_COUNTS, parse_markdown_table, validate
 
 
 EXAMPLE_PATTERN = re.compile(r"^(?P<word>.+?) \((?P<reading>.+?)\) (?P<meaning>.+)$")
@@ -42,13 +47,15 @@ def convert(root: Path) -> dict[str, object]:
         entries: list[dict[str, object]] = []
 
         for row in parse_markdown_table(path):
+            radicals = parse_radicals(row["Radicals"])
             entries.append(
                 {
                     "number": int(row["#"]),
                     "kanji": row["Kanji"],
                     "level": row["Level"],
                     "meanings": split_list(row["Meanings"]),
-                    "radicals": split_list(row["Radicals"]),
+                    "radicals": radicals,
+                    "radical_symbols": [radical["symbol"] for radical in radicals],
                     "readings": {
                         "on": split_list(row["On'yomi"]),
                         "kun": split_list(row["Kun'yomi"]),

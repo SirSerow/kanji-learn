@@ -16,7 +16,11 @@ Each table uses this schema:
 | # | Kanji | Level | Meanings | Radicals | On'yomi | Kun'yomi | Examples | Notes |
 |---:|:---:|:---:|---|---|---|---|---|---|
 
-`Radicals` contains visible multi-radical/component lookup elements from EDRDG KRADFILE, not only the single official dictionary radical.
+`Radicals` contains visible multi-radical/component lookup elements from EDRDG KRADFILE, not only the single official dictionary radical. Each component includes a short learner-friendly English gloss:
+
+```text
+王 (king), 囗 (enclosure), 丶 (dot)
+```
 
 Current row counts:
 
@@ -74,7 +78,13 @@ The converter emits one object with project metadata and entries grouped by JLPT
         "kanji": "日",
         "level": "N5",
         "meanings": ["day", "sun", "Japan", "counter for days"],
-        "radicals": ["日"],
+        "radicals": [
+          {
+            "symbol": "日",
+            "meaning": "sun/day"
+          }
+        ],
+        "radical_symbols": ["日"],
         "readings": {
           "on": ["ニチ", "ジツ"],
           "kun": ["ひ", "-び", "-か"]

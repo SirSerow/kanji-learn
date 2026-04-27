@@ -7,6 +7,11 @@ import argparse
 import gzip
 from pathlib import Path
 
+try:
+    from .radical_metadata import format_radicals
+except ImportError:
+    from radical_metadata import format_radicals
+
 
 LEVELS = ("N5", "N4", "N3", "N2")
 OLD_COLUMNS = [
@@ -118,7 +123,7 @@ def update_file(path: Path, krad: dict[str, list[str]]) -> int:
         if kanji not in krad:
             raise KeyError(f"{path}: no KRADFILE entry for {kanji}")
 
-        row["Radicals"] = ", ".join(krad[kanji])
+        row["Radicals"] = format_radicals(krad[kanji])
         output.append(format_row([row[column] for column in NEW_COLUMNS]))
         changed_rows += 1
 

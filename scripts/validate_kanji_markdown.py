@@ -6,6 +6,11 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
+try:
+    from .radical_metadata import RADICAL_MEANINGS, parse_radicals
+except ImportError:
+    from radical_metadata import RADICAL_MEANINGS, parse_radicals
+
 
 EXPECTED_COLUMNS = [
     "#",
@@ -93,8 +98,26 @@ def validate(root: Path) -> list[str]:
                 errors.append(f"{location}: Meanings is empty")
             if not row["Radicals"]:
                 errors.append(f"{location}: Radicals is empty")
-            elif any(not radical.strip() for radical in row["Radicals"].split(",")):
-                errors.append(f"{location}: Radicals contains an empty entry")
+            else:
+                raw_radicals = row["Radicals"].split(",")
+                if any(not radical.strip() for radical in raw_radicals):
+                    errors.append(f"{location}: Radicals contains an empty entry")
+
+                for radical in parse_radicals(row["Radicals"]):
+                    symbol = radical["symbol"]
+                    meaning = radical["meaning"]
+                    expected_meaning = RADICAL_MEANINGS.get(symbol)
+                    if not symbol:
+                        errors.append(f"{location}: Radicals contains an empty symbol")
+                    elif expected_meaning is None:
+                        errors.append(f"{location}: Radicals contains unknown symbol {symbol!r}")
+                    elif not meaning:
+                        errors.append(f"{location}: Radical {symbol!r} is missing a meaning")
+                    elif meaning != expected_meaning:
+                        errors.append(
+                            f"{location}: Radical {symbol!r} meaning should be "
+                            f"{expected_meaning!r}, got {meaning!r}"
+                        )
             if not row["On'yomi"] and not row["Kun'yomi"]:
                 errors.append(f"{location}: both On'yomi and Kun'yomi are empty")
             if not row["Examples"]:

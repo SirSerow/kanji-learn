@@ -1,6 +1,6 @@
 # Attribution
 
-This project includes kanji readings, English meanings, vocabulary examples, and radical/component lists derived from Electronic Dictionary Research and Development Group data.
+This project includes kanji readings, English meanings, vocabulary examples, and radical/component lists derived from Electronic Dictionary Research and Development Group data. Short English radical/component glosses are learner-facing labels maintained in this repository.
 
 ## EDRDG Data
 
@@ -18,7 +18,7 @@ When redistributing this dataset or generated JSON, keep attribution to EDRDG an
 Suggested downstream attribution text:
 
 ```text
-Kanji readings, English meanings, vocabulary examples, and radical/component lists are derived from KANJIDIC2, JMdict, and KRADFILE/RADKFILE data from the Electronic Dictionary Research and Development Group (EDRDG). See https://www.edrdg.org/ for source data and license terms.
+Kanji readings, English meanings, vocabulary examples, and radical/component lists are derived from KANJIDIC2, JMdict, and KRADFILE/RADKFILE data from the Electronic Dictionary Research and Development Group (EDRDG). Short English radical/component glosses are maintained by this project. See https://www.edrdg.org/ for source data and license terms.
 ```
 
 ## JLPT Level Placement
